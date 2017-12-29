@@ -57,5 +57,4 @@ typings/
 # dotenv environment variables file
 .env
 
-# API keys for weather app
-weather-app/data/constants.js
+.vscode
