@@ -1,5 +1,6 @@
 const express = require('express');
 const hbs = require('hbs');
+const fs = require('fs');
 var app = express();
 
 hbs.registerPartials(`${__dirname}/views/partials`);
@@ -8,6 +9,17 @@ app.use(express.static(`${__dirname}/public`));
 
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear() + 1;
+});
+
+app.use((req,res, next) => {
+    var log = `${new Date().toString()}: method: ${req.method}, url: ${req.url}`;
+    console.log(log);
+    fs.appendFile('server.log', log + '\n', (err) => {
+        if (err) {
+            console.log('Unable to append to server.log');
+        }
+    });
+    next();
 });
 
 hbs.registerHelper('screamIt', (input) => {
