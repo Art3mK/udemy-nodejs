@@ -5,7 +5,6 @@ var app = express();
 
 hbs.registerPartials(`${__dirname}/views/partials`);
 app.set('view engine', 'hbs');
-app.use(express.static(`${__dirname}/public`));
 
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear() + 1;
@@ -21,6 +20,12 @@ app.use((req,res, next) => {
     });
     next();
 });
+
+app.use((req,res,next) => {
+    res.render('maintenance.hbs');
+});
+
+app.use(express.static(`${__dirname}/public`));
 
 hbs.registerHelper('screamIt', (input) => {
     return input.toUpperCase();
