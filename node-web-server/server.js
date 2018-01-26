@@ -6,18 +6,24 @@ hbs.registerPartials(`${__dirname}/views/partials`);
 app.set('view engine', 'hbs');
 app.use(express.static(`${__dirname}/public`));
 
+hbs.registerHelper('getCurrentYear', () => {
+    return new Date().getFullYear() + 1;
+});
+
+hbs.registerHelper('screamIt', (input) => {
+    return input.toUpperCase();
+});
+
 app.get('/', (req, res) => {
     res.render('home.hbs',{
         welcomeMessage: "Превед, медвед!!1!",
-        pageTitle: 'Хомяк',
-        currentYear: new Date().getFullYear()
+        pageTitle: 'Хомяк'
     })
 });
 
 app.get('/about', (req, res) => {
     res.render('about.hbs', {
-        pageTitle: 'About Page',
-        currentYear: new Date().getFullYear()
+        pageTitle: 'About Page'
     })
 });
 
